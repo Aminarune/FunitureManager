@@ -26,7 +26,9 @@ namespace FunitureManager.Models
         public string User_Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Picture { get; set; }
+        public int Picture { get; set; }
+        public bool Status { get; set; }
+        public string Phonenumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

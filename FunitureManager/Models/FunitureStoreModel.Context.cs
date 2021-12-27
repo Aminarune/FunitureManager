@@ -18,8 +18,6 @@ namespace FunitureManager.Models
         public FunitureStoreDBContext()
             : base("name=FunitureStoreDBContext")
         {
-            this.Configuration.LazyLoadingEnabled = false;
-            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -33,7 +31,6 @@ namespace FunitureManager.Models
         public virtual DbSet<Order_Detail> Order_Detail { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Shipping_Address> Shipping_Address { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

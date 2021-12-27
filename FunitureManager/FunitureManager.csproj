@@ -118,8 +118,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\FunitureStoreModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>FunitureStoreModel.Context.cs</LastGenOutput>
       <DependentUpon>FunitureStoreModel.edmx</DependentUpon>
+      <LastGenOutput>FunitureStoreModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\FunitureStoreModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -189,9 +189,6 @@
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Shipping_Address.cs">
-      <DependentUpon>FunitureStoreModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
