@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Mvc;
 using FunitureManager.Models;
 
 namespace FunitureManager.Controllers
@@ -130,4 +131,13 @@ namespace FunitureManager.Controllers
             return db.Orders.Count(e => e.Id == id) > 0;
         }
     }
-}
+   
+    public class OrderWController : Controller
+    {
+        // GET: Order
+        public ActionResult Indexorder()
+        {
+            return View();
+        }
+    }
+ }

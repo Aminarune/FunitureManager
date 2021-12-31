@@ -116,6 +116,19 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Image\addidas.jpg" />
+    <Content Include="Image\bag.jpg" />
+    <Content Include="Image\blueBag.jpg" />
+    <Content Include="Image\jeans.jpg" />
+    <Content Include="Image\m2.jpg" />
+    <Content Include="Image\nike.jpg" />
+    <Content Include="Image\phat.jpg" />
+    <Content Include="Image\profile.jpg" />
+    <Content Include="Image\scarves.jpg" />
+    <Content Include="Image\shirt.jpg" />
+    <Content Include="Image\sunglasses.jpg" />
+    <Content Include="Image\thinh.jpg" />
+    <Content Include="Image\tu.jpg" />
     <Content Include="Models\FunitureStoreModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FunitureStoreModel.edmx</DependentUpon>
@@ -146,14 +159,22 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AnalyticsController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
+    <Compile Include="Controllers\ForgotpasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShippingAddressController.cs" />
+    <Compile Include="Controllers\StockController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TotalorderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -213,6 +234,25 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Totalorder\IndexTotalorder.cshtml" />
+    <Content Include="Views\Team\Indexteam.cshtml" />
+    <Content Include="Views\Stock\IndexStock.cshtml" />
+    <Content Include="Views\Analytics\Indexanalytics.cshtml" />
+    <Content Include="Views\Forgotpassword\IndexResetPW.cshtml" />
+    <Content Include="Views\Login\Indexlogin.cshtml" />
+    <Content Include="Views\Order\Indexorder.cshtml" />
+    <Content Include="Views\product\Indexproduct.cshtml" />
+    <Content Include="Views\OrderW\Indexorder.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
