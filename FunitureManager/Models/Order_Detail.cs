@@ -9,9 +9,11 @@
 
 namespace FunitureManager.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
     public partial class Order_Detail
     {
         public System.Guid Id_Order { get; set; }
@@ -19,8 +21,12 @@ namespace FunitureManager.Models
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal Total_Price { get; set; }
-    
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Order Order { get; set; }
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Product Product { get; set; }
     }
 }

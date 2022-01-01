@@ -9,9 +9,11 @@
 
 namespace FunitureManager.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,10 +28,16 @@ namespace FunitureManager.Models
         public System.Guid Id_User { get; set; }
         public System.Guid Id_Manager { get; set; }
         public string Status { get; set; }
-    
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Manager Manager { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual ICollection<Order_Detail> Order_Detail { get; set; }
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual User User { get; set; }
     }
 }

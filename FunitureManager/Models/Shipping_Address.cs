@@ -9,15 +9,19 @@
 
 namespace FunitureManager.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
     public partial class Shipping_Address
     {
         public System.Guid Id { get; set; }
         public System.Guid Id_User { get; set; }
         public string Address { get; set; }
-    
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual User User { get; set; }
     }
 }
