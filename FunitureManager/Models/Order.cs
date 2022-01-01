@@ -26,7 +26,7 @@ namespace FunitureManager.Models
         public System.DateTime Date { get; set; }
         public decimal Price { get; set; }
         public System.Guid Id_User { get; set; }
-        public System.Guid Id_Manager { get; set; }
+        public Nullable<System.Guid> Id_Manager { get; set; }
         public string Status { get; set; }
 
         [JsonIgnore]

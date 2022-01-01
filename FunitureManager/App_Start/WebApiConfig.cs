@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace FunitureManager
 {
@@ -19,6 +21,12 @@ namespace FunitureManager
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+                "ApiWithAssociations","api/{controller}/{id}/{action}");
+            config.Routes.MapHttpRoute("DefaultGet",
+                            "api/{controller}/{id}",
+                            new { action = "Get" },
+                            new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
 
             // Serializing the Data to Json Format
             var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;

@@ -21,6 +21,7 @@ namespace FunitureManager.Models
         {
             this.Order_Detail = new HashSet<Order_Detail>();
             this.Users = new HashSet<User>();
+            this.Users1 = new HashSet<User>();
         }
     
         public System.Guid Id { get; set; }
@@ -42,5 +43,9 @@ namespace FunitureManager.Models
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual ICollection<User> Users1 { get; set; }
     }
 }

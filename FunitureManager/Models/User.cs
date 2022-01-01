@@ -22,6 +22,7 @@ namespace FunitureManager.Models
             this.Orders = new HashSet<Order>();
             this.Shipping_Address = new HashSet<Shipping_Address>();
             this.Products = new HashSet<Product>();
+            this.Products1 = new HashSet<Product>();
         }
     
         public System.Guid Id { get; set; }
@@ -29,20 +30,22 @@ namespace FunitureManager.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public int Picture { get; set; }
-        public bool Status { get; set; }
+        public Nullable<bool> Status { get; set; }
         public string Phonenumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]
-        [IgnoreDataMember]
+        [IgnoreDataMember] 
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]
-        [IgnoreDataMember]
+        [IgnoreDataMember] 
         public virtual ICollection<Shipping_Address> Shipping_Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
-        [IgnoreDataMember]
+        
         public virtual ICollection<Product> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        
+        public virtual ICollection<Product> Products1 { get; set; }
     }
 }

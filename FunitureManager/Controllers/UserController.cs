@@ -31,8 +31,8 @@ namespace FunitureManager.Controllers
             {
                 return NotFound();
             }
-
             return Ok(user);
+            
         }
 
         // PUT: api/User/5
