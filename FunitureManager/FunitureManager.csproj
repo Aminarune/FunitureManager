@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AnalyticsController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShippingAddressController.cs" />
@@ -179,7 +181,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs">
+      <DependentUpon>FunitureStoreModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs">
+      <DependentUpon>FunitureStoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Favorite.cs">
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FunitureStoreModel.Context.cs">
@@ -210,9 +218,6 @@
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Shipping_Address.cs">
-      <DependentUpon>FunitureStoreModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -256,6 +261,11 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

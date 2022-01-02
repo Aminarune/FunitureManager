@@ -7,11 +7,11 @@
       <Schema Namespace="FunitureStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cart">
           <Key>
-            <PropertyRef Name="Id_User" />
-            <PropertyRef Name="Id_Product" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id_User" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Id_Product" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id_User" Type="uniqueidentifier" />
+          <Property Name="Id_Product" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -23,11 +23,11 @@
         </EntityType>
         <EntityType Name="Favorite">
           <Key>
-            <PropertyRef Name="Id_User" />
-            <PropertyRef Name="Id_Product" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id_User" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Id_Product" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id_User" Type="uniqueidentifier" />
+          <Property Name="Id_Product" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -80,16 +80,6 @@
           <Property Name="Id_User" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -103,7 +93,7 @@
           <Property Name="Phonenumber" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="FK_Cart_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -115,7 +105,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Cart_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -127,7 +117,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favorite_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="Favorite" Type="Self.Favorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -139,7 +129,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favorite_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Favorite" Type="Self.Favorite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -231,7 +221,6 @@
           <EntitySet Name="Order_Detail" EntityType="Self.Order_Detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipping_Address" EntityType="Self.Shipping_Address" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Cart_Product" Association="Self.FK_Cart_Product">
             <End Role="Product" EntitySet="Product" />
@@ -279,6 +268,16 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FunitureStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Id_User" Type="Guid" />
+          <Property Name="Id_Product" Type="Guid" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Cart_Product" FromRole="Cart" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Cart_User" FromRole="Cart" ToRole="User" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
@@ -287,6 +286,16 @@
           <Property Name="Category_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Favorite">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Id_User" Type="Guid" />
+          <Property Name="Id_Product" Type="Guid" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Favorite_Product" FromRole="Favorite" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Favorite_User" FromRole="Favorite" ToRole="User" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -336,10 +345,10 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Favorites" Relationship="Self.FK_Favorite_Product" FromRole="Product" ToRole="Favorite" />
           <NavigationProperty Name="Order_Detail" Relationship="Self.FK_Order_Detail_Product" FromRole="Product" ToRole="Order_Detail" />
-          <NavigationProperty Name="Users" Relationship="Self.Cart" FromRole="Product" ToRole="User" />
-          <NavigationProperty Name="Users1" Relationship="Self.Favorite" FromRole="Product" ToRole="User" />
         </EntityType>
         <EntityType Name="Shipping_Address">
           <Key>
@@ -349,16 +358,6 @@
           <Property Name="Id_User" Type="Guid" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Shipping_Address_User" FromRole="Shipping_Address" ToRole="User" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -371,11 +370,35 @@
           <Property Name="Picture" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Phonenumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_User" FromRole="User" ToRole="Cart" />
+          <NavigationProperty Name="Favorites" Relationship="Self.FK_Favorite_User" FromRole="User" ToRole="Favorite" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Shipping_Address" Relationship="Self.FK_Shipping_Address_User" FromRole="User" ToRole="Shipping_Address" />
-          <NavigationProperty Name="Products" Relationship="Self.Cart" FromRole="User" ToRole="Product" />
-          <NavigationProperty Name="Products1" Relationship="Self.Favorite" FromRole="User" ToRole="Product" />
         </EntityType>
+        <Association Name="FK_Cart_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -385,6 +408,30 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favorite_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Favorite" Type="Self.Favorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Favorite">
+              <PropertyRef Name="Id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favorite_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Favorite" Type="Self.Favorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Favorite">
+              <PropertyRef Name="Id_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -448,26 +495,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Cart">
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-        </Association>
-        <Association Name="Favorite">
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="FunitureStoreDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Favorites" EntityType="Self.Favorite" />
           <EntitySet Name="Managers" EntityType="Self.Manager" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Order_Detail" EntityType="Self.Order_Detail" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Shipping_Address" EntityType="Self.Shipping_Address" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Cart_Product" Association="Self.FK_Cart_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_User" Association="Self.FK_Cart_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
           <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favorite_Product" Association="Self.FK_Favorite_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Favorite" EntitySet="Favorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favorite_User" Association="Self.FK_Favorite_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Favorite" EntitySet="Favorites" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Manager" Association="Self.FK_Order_Manager">
             <End Role="Manager" EntitySet="Managers" />
@@ -489,14 +545,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Shipping_Address" EntitySet="Shipping_Address" />
           </AssociationSet>
-          <AssociationSet Name="Cart" Association="Self.Cart">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="Favorite" Association="Self.Favorite">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -504,12 +552,30 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="FunitureStoreModelStoreContainer" CdmEntityContainer="FunitureStoreDBContext">
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="FunitureStoreModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="FunitureStoreModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favorites">
+            <EntityTypeMapping TypeName="FunitureStoreModel.Favorite">
+              <MappingFragment StoreEntitySet="Favorite">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -568,17 +634,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="FunitureStoreModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="FunitureStoreModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -592,22 +647,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Cart" TypeName="FunitureStoreModel.Cart" StoreEntitySet="Cart">
-            <EndProperty Name="Product">
-              <ScalarProperty Name="Id" ColumnName="Id_Product" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="Id" ColumnName="Id_User" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Favorite" TypeName="FunitureStoreModel.Favorite" StoreEntitySet="Favorite">
-            <EndProperty Name="Product">
-              <ScalarProperty Name="Id" ColumnName="Id_Product" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="Id" ColumnName="Id_User" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

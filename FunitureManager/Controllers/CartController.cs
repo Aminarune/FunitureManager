@@ -12,44 +12,44 @@ using FunitureManager.Models;
 
 namespace FunitureManager.Controllers
 {
-    public class FavoriteController : ApiController
+    public class CartController : ApiController
     {
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
 
-        // GET: api/Favorite
-        public IQueryable<Favorite> GetFavorites()
+        // GET: api/Cart
+        public IQueryable<Cart> GetCarts()
         {
-            return db.Favorites;
+            return db.Carts;
         }
 
-        // GET: api/Favorite/5
-        [ResponseType(typeof(Favorite))]
-        public IHttpActionResult GetFavorite(Guid id)
+        // GET: api/Cart/5
+        [ResponseType(typeof(Cart))]
+        public IHttpActionResult GetCart(Guid id)
         {
-            Favorite favorite = db.Favorites.Find(id);
-            if (favorite == null)
+            Cart cart = db.Carts.Find(id);
+            if (cart == null)
             {
                 return NotFound();
             }
 
-            return Ok(favorite);
+            return Ok(cart);
         }
 
-        // PUT: api/Favorite/5
+        // PUT: api/Cart/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutFavorite(Guid id, Favorite favorite)
+        public IHttpActionResult PutCart(Guid id, Cart cart)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != favorite.Id)
+            if (id != cart.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(favorite).State = EntityState.Modified;
+            db.Entry(cart).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace FunitureManager.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FavoriteExists(id))
+                if (!CartExists(id))
                 {
                     return NotFound();
                 }
@@ -70,16 +70,16 @@ namespace FunitureManager.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Favorite
-        [ResponseType(typeof(Favorite))]
-        public IHttpActionResult PostFavorite(Favorite favorite)
+        // POST: api/Cart
+        [ResponseType(typeof(Cart))]
+        public IHttpActionResult PostCart(Cart cart)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Favorites.Add(favorite);
+            db.Carts.Add(cart);
 
             try
             {
@@ -87,7 +87,7 @@ namespace FunitureManager.Controllers
             }
             catch (DbUpdateException)
             {
-                if (FavoriteExists(favorite.Id))
+                if (CartExists(cart.Id))
                 {
                     return Conflict();
                 }
@@ -97,23 +97,23 @@ namespace FunitureManager.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = favorite.Id }, favorite);
+            return CreatedAtRoute("DefaultApi", new { id = cart.Id }, cart);
         }
 
-        // DELETE: api/Favorite/5
-        [ResponseType(typeof(Favorite))]
-        public IHttpActionResult DeleteFavorite(Guid id)
+        // DELETE: api/Cart/5
+        [ResponseType(typeof(Cart))]
+        public IHttpActionResult DeleteCart(Guid id)
         {
-            Favorite favorite = db.Favorites.Find(id);
-            if (favorite == null)
+            Cart cart = db.Carts.Find(id);
+            if (cart == null)
             {
                 return NotFound();
             }
 
-            db.Favorites.Remove(favorite);
+            db.Carts.Remove(cart);
             db.SaveChanges();
 
-            return Ok(favorite);
+            return Ok(cart);
         }
 
         protected override void Dispose(bool disposing)
@@ -125,9 +125,9 @@ namespace FunitureManager.Controllers
             base.Dispose(disposing);
         }
 
-        private bool FavoriteExists(Guid id)
+        private bool CartExists(Guid id)
         {
-            return db.Favorites.Count(e => e.Id == id) > 0;
+            return db.Carts.Count(e => e.Id == id) > 0;
         }
     }
 }

@@ -19,9 +19,9 @@ namespace FunitureManager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            this.Carts = new HashSet<Cart>();
+            this.Favorites = new HashSet<Favorite>();
             this.Order_Detail = new HashSet<Order_Detail>();
-            this.Users = new HashSet<User>();
-            this.Users1 = new HashSet<User>();
         }
     
         public System.Guid Id { get; set; }
@@ -31,21 +31,20 @@ namespace FunitureManager.Models
         public string Description { get; set; }
         public byte[] Picture { get; set; }
         public Nullable<bool> Status { get; set; }
-
+        [JsonIgnore]
+        [IgnoreDataMember]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual Category Category { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]
         [IgnoreDataMember]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favorite> Favorites { get; set; }
+        [JsonIgnore]
+        [IgnoreDataMember]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Detail> Order_Detail { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
-        [IgnoreDataMember]
-        public virtual ICollection<User> Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
-        [IgnoreDataMember]
-        public virtual ICollection<User> Users1 { get; set; }
     }
 }
