@@ -16,9 +16,25 @@ namespace FunitureManager.Controllers
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
 
         // GET: Categories
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            return View(db.Categories.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            var Categories = from s in db.Categories
+                             select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Categories = Categories.Where(s => s.Category_Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    Categories = Categories.OrderByDescending(s => s.Category_Name);
+                    break;
+                default:
+                    Categories = Categories.OrderBy(s => s.Category_Name);
+                    break;
+            }
+            return View(Categories.ToList());
         }
 
         // GET: Categories/Details/5
@@ -144,5 +160,7 @@ namespace FunitureManager.Controllers
             }
             base.Dispose(disposing);
         }
+      
+        
     }
 }

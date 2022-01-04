@@ -10,146 +10,139 @@ using FunitureManager.Models;
 
 namespace FunitureManager.Controllers
 {
-    public class ProductsController : Controller
+    public class UsersController : Controller
     {
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
 
-        // GET: Products
+        // GET: Users
         public ViewResult Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.CateSortParm = sortOrder == "Cate" ? "Cate_desc" : "Cate";
             ViewBag.PriceSortParm = sortOrder == "Price" ? "Price_desc" : "Price";
-            var products = from s in db.Products
+            var products = from s in db.Users
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                products = products.Where(s => s.Name.Contains(searchString)
-                    ||s.Category.Category_Name.Contains(searchString));
+                products = products.Where(s => s.User_Name.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    products = products.OrderByDescending(s => s.Name);
+                    products = products.OrderByDescending(s => s.User_Name);
                     break;
                 case "Cate":
-                    products = products.OrderBy(s => s.Category.Category_Name);
+                    products = products.OrderBy(s => s.Email);
                     break;
                 case "Cate_desc":
-                    products = products.OrderByDescending(s => s.Category.Category_Name);
+                    products = products.OrderByDescending(s => s.Email);
                     break;
                 case "Price":
-                    products = products.OrderBy(s => s.Price);
+                    products = products.OrderBy(s => s.Phonenumber);
                     break;
                 case "Price_desc":
-                    products = products.OrderByDescending(s => s.Price);
+                    products = products.OrderByDescending(s => s.Phonenumber);
                     break;
                 default:
-                    products = products.OrderBy(s => s.Name);
+                    products = products.OrderBy(s => s.User_Name);
                     break;
             }
 
             return View(products.ToList());
         }
 
-        // GET: Products/Details/5
-        public ActionResult Details(Guid? id)
+            // GET: Users/Details/5
+            public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(user);
         }
 
-        // GET: Products/Create
+        // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.Id_Category = new SelectList(db.Categories, "Id", "Category_Name");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Id_Category,Price,Description,Status")] Product product,HttpPostedFileBase image1)
+        public ActionResult Create([Bind(Include = "Id,User_Name,Email,Password,Picture,Status,Phonenumber")] User user)
         {
             if (ModelState.IsValid)
             {
-                product.Picture = new byte[image1.ContentLength];
-                image1.InputStream.Read(product.Picture, 0, image1.ContentLength);
-                product.Id = Guid.NewGuid();
-                db.Products.Add(product);
+                user.Id = Guid.NewGuid();
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Id_Category = new SelectList(db.Categories, "Id", "Category_Name", product.Id_Category);
-            return View(product);
+            return View(user);
         }
 
-        // GET: Products/Edit/5
+        // GET: Users/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Id_Category = new SelectList(db.Categories, "Id", "Category_Name", product.Id_Category);
-            return View(product);
+            return View(user);
         }
 
-        // POST: Products/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Id_Category,Price,Description,Picture,Status")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,User_Name,Email,Password,Picture,Status,Phonenumber")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Id_Category = new SelectList(db.Categories, "Id", "Category_Name", product.Id_Category);
-            return View(product);
+            return View(user);
         }
 
-        // GET: Products/Delete/5
+        // GET: Users/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(user);
         }
 
-        // POST: Products/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

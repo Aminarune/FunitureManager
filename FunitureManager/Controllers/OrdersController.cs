@@ -14,16 +14,53 @@ namespace FunitureManager.Controllers
     public class OrdersController : Controller
     {
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
-        
-        // GET: Orders
-        public ActionResult Index()
-        {
-            var orders = db.Orders.Include(o => o.Manager).Include(o => o.User);
-            return View(orders.ToList());
-        }
 
-        // GET: Orders/Details/5
-        public ActionResult Details(Guid? id)
+        // GET: Orders
+        public ViewResult Index(string sortOrder, string searchString)
+        {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Date" : "";
+            ViewBag.StatSortParm = sortOrder == "Stat" ? "Stat_desc" : "Stat";
+            ViewBag.DateSortParm = sortOrder == "Name" ? "Name_desc" : "Name";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "Price_desc" : "Price";
+            var products = from s in db.Orders
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.User.User_Name.Contains(searchString)
+                    ||s.Status.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    products = products.OrderByDescending(s => s.User.User_Name);
+                    break;
+                case "Stat":
+                    products = products.OrderBy(s => s.Status);
+                    break;
+                case "Stat_desc":
+                    products = products.OrderByDescending(s => s.Status);
+                    break;
+                case "Date":
+                    products = products.OrderBy(s => s.Date);
+                    break;
+                case "Name":
+                    products = products.OrderBy(s => s.User.User_Name);
+                    break;
+                case "Price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "Price_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    products = products.OrderByDescending(s => s.Date);
+                    break;
+            }
+
+            return View(products.ToList());
+        }
+            // GET: Orders/Details/5
+            public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
@@ -140,7 +177,7 @@ namespace FunitureManager.Controllers
             base.Dispose(disposing);
         }
         [HttpPost, ActionName("Index")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Index(Guid id,String status)
         {
             if (id == null)
