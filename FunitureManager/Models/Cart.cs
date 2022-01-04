@@ -19,7 +19,10 @@ namespace FunitureManager.Models
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> Id_User { get; set; }
         public Nullable<System.Guid> Id_Product { get; set; }
-
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> Total_Price { get; set; }
+        
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual Product Product { get; set; }

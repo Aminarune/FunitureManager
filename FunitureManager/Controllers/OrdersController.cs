@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using FunitureManager.Models;
@@ -13,7 +14,7 @@ namespace FunitureManager.Controllers
     public class OrdersController : Controller
     {
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
-
+        
         // GET: Orders
         public ActionResult Index()
         {
@@ -105,7 +106,7 @@ namespace FunitureManager.Controllers
         }
 
         // GET: Orders/Delete/5
-        public ActionResult Delete(Guid? id)
+        public ActionResult Delete(Guid id)
         {
             if (id == null)
             {
@@ -137,6 +138,29 @@ namespace FunitureManager.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost, ActionName("Index")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(Guid id,String status)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest); 
+            }
+
+            Order order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            if (status == null) 
+            { 
+                status = "Pending"; 
+            }
+            order.Status = order.Status.Replace(order.Status, status);
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

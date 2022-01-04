@@ -10,6 +10,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Product.Picture)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Product.Name)
         </th>
         <th>
@@ -30,6 +33,13 @@
     {
 <tr>
     <td>
+        @{
+            var base64 = Convert.ToBase64String(item.Product.Picture);
+            var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+        }
+        <img src="@imgsrc" style="max-width:100px;max-height:100px" />
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => item.Product.Name)
     </td>
     <td>
@@ -40,17 +50,14 @@
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Total_Price)
+        
     </td>
     
+    
 
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-    </td>
+    
 </tr>
     }
-
 </table>
 <div>
     @Html.ActionLink("Back to List", "Index")

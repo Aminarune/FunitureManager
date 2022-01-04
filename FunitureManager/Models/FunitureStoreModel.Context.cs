@@ -33,6 +33,7 @@ namespace FunitureManager.Models
         public virtual DbSet<Order_Detail> Order_Detail { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Shipping_Address> Shipping_Address { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

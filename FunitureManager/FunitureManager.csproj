@@ -220,6 +220,9 @@
     <Compile Include="Models\Shipping_Address.cs">
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>FunitureStoreModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
