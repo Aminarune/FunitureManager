@@ -27,7 +27,9 @@ namespace FunitureManager.Models
         public decimal Price { get; set; }
         public System.Guid Id_User { get; set; }
         public Nullable<System.Guid> Id_Manager { get; set; }
-        public string Status { get; set; }
+        public string State { get; set; }
+        public System.Guid Id_Shipping { get; set; }
+        public Nullable<bool> Status { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]
@@ -36,6 +38,9 @@ namespace FunitureManager.Models
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual ICollection<Order_Detail> Order_Detail { get; set; }
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual Shipping_Address Shipping_Address { get; set; }
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual User User { get; set; }

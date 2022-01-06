@@ -17,7 +17,7 @@
             @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParm })
         </th>
         <th>
-            @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StatSortParm })
+            @Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StatSortParm })
         </th>
         <th></th>
     </tr>
@@ -38,20 +38,20 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    if (item.Status == "Pending")
+                    if (item.State == "Pending")
                     {
 
                         <button class="btn btn-success btn-update-status" data-id="@item.Id">@Html.ActionLink("Pending", "Index", new { id = item.Id, status = "Pending" })</button>
                         <button class="btn btn-danger btn-cancel" data-id="@item.Id">@Html.ActionLink("Delivering", "Index", new { id = item.Id, status = "Delivering" })</button>
                         <button class="btn btn-danger btn-cancel" data-id="@item.Id">@Html.ActionLink("Completed", "Index", new { id = item.Id, status = "Completed" })</button>
                     }
-                    else if (item.Status == "Delivering")
+                    else if (item.State == "Delivering")
                     {
                         <button class="btn btn-danger btn-cancel" data-id="@item.Id">@Html.ActionLink("Pending", "Index", new { id = item.Id, status = "Pending" })</button>
                         <button class="btn btn-success btn-update-status" data-id="@item.Id">@Html.ActionLink("Delivering", "Index", new { id = item.Id, status = "Delivering" })</button>
                         <button class="btn btn-danger btn-cancel" data-id="@item.Id">@Html.ActionLink("Completed", "Index", new { id = item.Id, status = "Completed" })</button>
                     }
-                    else if (item.Status == "Completed")
+                    else if (item.State == "Completed")
                     {
                         <button class="btn btn-danger btn-cancel" data-id="@item.Id">@Html.ActionLink("Pending", "Index", new { id = item.Id, status = "Pending" })</button>
                         <button class="btn btn-danger btn-cancel" data-id="@item.Id">@Html.ActionLink("Delivering", "Index", new { id = item.Id, status = "Delivering" })</button>

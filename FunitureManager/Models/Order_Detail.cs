@@ -21,10 +21,9 @@ namespace FunitureManager.Models
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal Total_Price { get; set; }
-
-
+        public Nullable<bool> Status { get; set; }
         [JsonIgnore]
-        [IgnoreDataMember] 
+        [IgnoreDataMember]
         public virtual Order Order { get; set; }
         [JsonIgnore]
         [IgnoreDataMember]

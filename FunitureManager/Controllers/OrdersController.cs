@@ -27,7 +27,7 @@ namespace FunitureManager.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 products = products.Where(s => s.User.User_Name.Contains(searchString)
-                    ||s.Status.Contains(searchString));
+                    ||s.State.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -194,7 +194,7 @@ namespace FunitureManager.Controllers
             { 
                 status = "Pending"; 
             }
-            order.Status = order.Status.Replace(order.Status, status);
+            order.State = order.State.Replace(order.State, status);
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -4,17 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4bb220b56251490eb8f727ced7432181" Name="Diagram1">
-        <EntityTypeShape EntityType="FunitureStoreModel.Cart" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.Category" Width="1.5" PointX="1.5" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.Favorite" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.Manager" Width="1.5" PointX="3.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.Order" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.Order_Detail" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.Product" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.Shipping_Address" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FunitureStoreModel.User" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+      <Diagram DiagramId="d689eda376c54652989031bceb88657c" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="FunitureStoreModel.Cart" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunitureStoreModel.Category" Width="1.5" PointX="1.5" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunitureStoreModel.Favorite" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunitureStoreModel.Manager" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunitureStoreModel.Order" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunitureStoreModel.Order_Detail" Width="1.5" PointX="7.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunitureStoreModel.Product" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunitureStoreModel.Shipping_Address" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunitureStoreModel.User" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
         <AssociationConnector Association="FunitureStoreModel.FK_Cart_Product" ManuallyRouted="false" />
         <AssociationConnector Association="FunitureStoreModel.FK_Cart_User" ManuallyRouted="false" />
         <AssociationConnector Association="FunitureStoreModel.FK_Product_Category" ManuallyRouted="false" />
@@ -22,6 +21,7 @@
         <AssociationConnector Association="FunitureStoreModel.FK_Favorite_User" ManuallyRouted="false" />
         <AssociationConnector Association="FunitureStoreModel.FK_Order_Manager" ManuallyRouted="false" />
         <AssociationConnector Association="FunitureStoreModel.FK_Order_Detail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="FunitureStoreModel.FK_Order_Shipping_Address" ManuallyRouted="false" />
         <AssociationConnector Association="FunitureStoreModel.FK_Order_User" ManuallyRouted="false" />
         <AssociationConnector Association="FunitureStoreModel.FK_Order_Detail_Product" ManuallyRouted="false" />
         <AssociationConnector Association="FunitureStoreModel.FK_Shipping_Address_User" ManuallyRouted="false" />
