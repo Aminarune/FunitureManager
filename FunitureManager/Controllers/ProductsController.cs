@@ -13,6 +13,7 @@ namespace FunitureManager.Controllers
     public class ProductsController : Controller
     {
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
+        private FunitureStoreDBContext dbs = new FunitureStoreDBContext();
 
         // GET: Products
         public ViewResult Index(string sortOrder, string searchString)
@@ -116,10 +117,23 @@ namespace FunitureManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Id_Category,Price,Description,Picture,Status")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,Name,Id_Category,Price,Description,Status")] Product product, HttpPostedFileBase image1)
         {
             if (ModelState.IsValid)
             {
+                if (image1 == null)
+                {
+
+                    Guid id = product.Id;
+                    Product c = dbs.Products.Find(id);
+                    byte[] pic = c.Picture;
+                    product.Picture = pic;
+                }
+                else
+                {
+                    product.Picture = new byte[image1.ContentLength];
+                    image1.InputStream.Read(product.Picture, 0, image1.ContentLength);
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -149,7 +163,8 @@ namespace FunitureManager.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+            product.Status = false;
+            db.Entry(product).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

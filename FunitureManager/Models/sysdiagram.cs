@@ -9,22 +9,15 @@
 
 namespace FunitureManager.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
- 
-
-    public partial class Favorite
+    
+    public partial class sysdiagram
     {
-        public System.Guid Id { get; set; }
-        public Nullable<System.Guid> Id_User { get; set; }
-        public Nullable<System.Guid> Id_Product { get; set; }
-        [JsonIgnore]
-        [IgnoreDataMember]
-        public virtual Product Product { get; set; }
-        [JsonIgnore]
-        [IgnoreDataMember]
-        public virtual User User { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

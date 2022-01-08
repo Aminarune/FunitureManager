@@ -30,7 +30,6 @@ namespace FunitureManager.Models
         public string State { get; set; }
         public System.Guid Id_Shipping { get; set; }
         public Nullable<bool> Status { get; set; }
-
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual Manager Manager { get; set; }
@@ -41,8 +40,9 @@ namespace FunitureManager.Models
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual Shipping_Address Shipping_Address { get; set; }
+
         [JsonIgnore]
-        [IgnoreDataMember]
+        [IgnoreDataMember] 
         public virtual User User { get; set; }
     }
 }

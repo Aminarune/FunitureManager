@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using FunitureManager.Models;
+using FunitureManager.Services;
 
 namespace FunitureManager.Controllers
 {
     public class OrdersController : Controller
     {
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
-
+        FireBasePush push = new FireBasePush("token_here");
         // GET: Orders
         public ViewResult Index(string sortOrder, string searchString)
         {
@@ -197,7 +198,24 @@ namespace FunitureManager.Controllers
             order.State = order.State.Replace(order.State, status);
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
+            //
+            push.SendPush(new PushMessage()
+            {
+                to = "token_target", //for a topic to": "/topics/foo-bar"
+                notification = new PushMessageData
+                {
+                    title = "Status Order",
+                    text = "Your status order now is "+status,
+                    click_action =  "click_action" 
+                },
+                data = new
+                {
+                    example = "empty"
+                }
+            });
+            //
             return RedirectToAction("Index");
         }
+
     }
 }

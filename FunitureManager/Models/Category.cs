@@ -14,6 +14,7 @@ namespace FunitureManager.Models
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
+
     public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,9 +27,9 @@ namespace FunitureManager.Models
         public string Category_Name { get; set; }
         public byte[] Picture { get; set; }
         public Nullable<bool> Status { get; set; }
-
         [JsonIgnore]
         [IgnoreDataMember]
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }

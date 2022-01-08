@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,6 +13,7 @@ namespace FunitureManager.Controllers
     public class CategoriesController : Controller
     {
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
+        private FunitureStoreDBContext dbs = new FunitureStoreDBContext();
 
         // GET: Categories
         public ActionResult Index(string sortOrder, string searchString)
@@ -63,7 +63,7 @@ namespace FunitureManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Category_Name")] Category category,HttpPostedFileBase image1)
+        public ActionResult Create([Bind(Include = "Id,Category_Name,Status")] Category category, HttpPostedFileBase image1)
         {
             if (ModelState.IsValid)
             {
@@ -98,30 +98,26 @@ namespace FunitureManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Category_Name,Picture")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Category_Name,Status")] Category category, HttpPostedFileBase image1)
         {
             if (ModelState.IsValid)
             {
-                try
+                if (image1 == null)
                 {
-                    db.Entry(category).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    
+                    Guid id = category.Id;
+                    Category c = dbs.Categories.Find(id);
+                    byte[] pic = c.Picture;
+                    category.Picture = pic;
                 }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
+                else 
+                { 
+                    category.Picture = new byte[image1.ContentLength];
+                    image1.InputStream.Read(category.Picture, 0, image1.ContentLength);
                 }
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View(category);
         }
@@ -160,7 +156,5 @@ namespace FunitureManager.Controllers
             }
             base.Dispose(disposing);
         }
-      
-        
     }
 }
