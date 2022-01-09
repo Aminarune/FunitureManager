@@ -143,9 +143,10 @@ namespace FunitureManager.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
+            category.Status = false;
+            db.Entry(category).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index");      
         }
 
         protected override void Dispose(bool disposing)

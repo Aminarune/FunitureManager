@@ -201,7 +201,7 @@ namespace FunitureManager.Controllers
             //
             push.SendPush(new PushMessage()
             {
-                to = "token_target", //for a topic to": "/topics/foo-bar"
+                to = order.User.Token, //for a topic to": "/topics/foo-bar"
                 notification = new PushMessageData
                 {
                     title = "Status Order",

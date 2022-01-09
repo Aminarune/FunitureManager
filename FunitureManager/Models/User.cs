@@ -33,8 +33,10 @@ namespace FunitureManager.Models
         public int Picture { get; set; }
         public Nullable<bool> Status { get; set; }
         public string Phonenumber { get; set; }
+        public string Token { get; set; }
         [JsonIgnore]
         [IgnoreDataMember]
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
         [JsonIgnore]

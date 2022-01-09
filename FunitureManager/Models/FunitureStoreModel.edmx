@@ -121,6 +121,7 @@
           <Property Name="Picture" Type="int" Nullable="false" />
           <Property Name="Status" Type="bit" />
           <Property Name="Phonenumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="1000" />
         </EntityType>
         <Association Name="FK_Cart_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
@@ -467,6 +468,7 @@
           <Property Name="Picture" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Phonenumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_User" FromRole="User" ToRole="Cart" />
           <NavigationProperty Name="Favorites" Relationship="Self.FK_Favorite_User" FromRole="User" ToRole="Favorite" />
           <NavigationProperty Name="Notifications" Relationship="Self.FK_Notification_User" FromRole="User" ToRole="Notification" />
@@ -808,6 +810,7 @@
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
