@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<FunitureManager.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Deleted";
 }
 
 
@@ -16,9 +16,9 @@
         <input type="submit" value="Search" />
     </p>
 
-        <p>
-            @Html.ActionLink("View Deleted Product", "Deleted")
-        </p>
+    <p>
+        @Html.ActionLink("View Product", "Index")
+    </p>
 
 }
 
@@ -27,10 +27,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Product Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Product Name", "Deleted", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParm })
+            @Html.ActionLink("Price", "Deleted", new { sortOrder = ViewBag.PriceSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -39,7 +39,7 @@
             @Html.DisplayNameFor(model => model.Picture)
         </th>
         <th>
-            @Html.ActionLink("Category", "Index", new { sortOrder = ViewBag.CateSortParm })
+            @Html.ActionLink("Category", "Deleted", new { sortOrder = ViewBag.CateSortParm })
         </th>
         <th></th>
     </tr>
@@ -69,7 +69,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Restore", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

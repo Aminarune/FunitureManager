@@ -49,7 +49,7 @@ namespace FunitureManager.Controllers
                     products = products.OrderBy(s => s.Name);
                     break;
             }
-
+                products = products.Where(p => p.Status == true);
             return View(products.ToList());
         }
 
@@ -163,7 +163,14 @@ namespace FunitureManager.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Product product = db.Products.Find(id);
-            product.Status = false;
+            if (product.Status == true)
+            {
+                product.Status = false;
+            }
+            else
+            {
+                product.Status = true;
+            }
             db.Entry(product).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -176,6 +183,42 @@ namespace FunitureManager.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ViewResult Deleted(string sortOrder, string searchString)
+        {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.CateSortParm = sortOrder == "Cate" ? "Cate_desc" : "Cate";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "Price_desc" : "Price";
+            var products = from s in db.Products
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.Name.Contains(searchString)
+                    || s.Category.Category_Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.Name);
+                    break;
+                case "Cate":
+                    products = products.OrderBy(s => s.Category.Category_Name);
+                    break;
+                case "Cate_desc":
+                    products = products.OrderByDescending(s => s.Category.Category_Name);
+                    break;
+                case "Price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "Price_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.Name);
+                    break;
+            }
+            products = products.Where(p => p.Status == false);
+            return View(products.ToList());
         }
     }
 }

@@ -34,6 +34,7 @@ namespace FunitureManager.Controllers
                     Categories = Categories.OrderBy(s => s.Category_Name);
                     break;
             }
+            Categories = Categories.Where(p => p.Status == true);
             return View(Categories.ToList());
         }
 
@@ -143,7 +144,14 @@ namespace FunitureManager.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Category category = db.Categories.Find(id);
-            category.Status = false;
+            if (category.Status == true) 
+            { 
+                category.Status = false;
+            }
+            else
+            {
+                category.Status = true;
+            }
             db.Entry(category).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");      
@@ -156,6 +164,27 @@ namespace FunitureManager.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult Deleted(string sortOrder, string searchString)
+        {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            var Categories = from s in db.Categories
+                             select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Categories = Categories.Where(s => s.Category_Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    Categories = Categories.OrderByDescending(s => s.Category_Name);
+                    break;
+                default:
+                    Categories = Categories.OrderBy(s => s.Category_Name);
+                    break;
+            }
+            Categories = Categories.Where(p => p.Status == false);
+            return View(Categories.ToList());
         }
     }
 }

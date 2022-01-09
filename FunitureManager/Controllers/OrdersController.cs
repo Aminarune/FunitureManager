@@ -73,10 +73,12 @@ namespace FunitureManager.Controllers
             {
                 return HttpNotFound();
             }
+            else
             {
                 var order_Detail = db.Order_Detail.Include(o => o.Order).Include(o => o.Product);
                 var list = order_Detail.Where(o => o.Id_Order == id);
                 return View(list.ToList());
+                
             }
         }
 

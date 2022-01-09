@@ -40,7 +40,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Picture)
+            @{
+                var base64 = Convert.ToBase64String(Model.Picture);
+                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+            }
+            <img src="@imgsrc" style="max-width:100px;max-height:100px" />
         </dd>
 
         <dt>
@@ -61,12 +65,22 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+        if (Model.Status == true)
+        {
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+        else
+        {
+            <div class="form-actions no-color">
+                <input type="submit" value="Restore" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Deleted")
+            </div>
+        }
     }
 </div>
