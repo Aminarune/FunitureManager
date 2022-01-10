@@ -15,7 +15,7 @@ namespace FunitureManager.Controllers
     public class OrdersController : Controller
     {
         private FunitureStoreDBContext db = new FunitureStoreDBContext();
-        FireBasePush push = new FireBasePush("token_here");
+        FireBasePush push = new FireBasePush("AAAA7EDld9M:APA91bFG_u9yAD0nga0khbfVrzgWHl3NHBcU5Yheuxlgqu3gv7XTFROi0V9U-lhyaBkrF0WM2PkYc1uo6mTDK5WZZQjnUmNo4ySFA0mIqKHvhxU0m2SDyD5aIYdlioYukGoMvB3WdwJ4");
         // GET: Orders
         public ViewResult Index(string sortOrder, string searchString)
         {

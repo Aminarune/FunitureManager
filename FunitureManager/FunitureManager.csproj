@@ -325,6 +325,9 @@
     <Content Include="Models\FunitureStoreModel.edmx.diagram">
       <DependentUpon>FunitureStoreModel.edmx</DependentUpon>
     </Content>
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -407,6 +410,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FireBasePush.cs" />
   </ItemGroup>

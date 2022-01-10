@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FunitureManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,46 @@ namespace FunitureManager.Controllers
 {
     public class HomeController : Controller
     {
+        private FunitureStoreDBContext db = new FunitureStoreDBContext();
+        private FunitureStoreDBContext dbs = new FunitureStoreDBContext();
         // GET: Home
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View();
+            /*var products = from s in db.Orders
+                           select s;
+            products = products.OrderByDescending(s => s.Date);
+            return View(products.ToList());*/  
+            ViewModel mymodel = new ViewModel();
+            //Order
+                var order = from s in db.Orders
+                            select s;
+                order = order.OrderByDescending(s => s.Date);
+                 
+
+                mymodel.Orders = order.ToList();
+
+            //Order_detail
+            var orders = from s in db.Order_Detail select s;
+            mymodel.Order_Details = orders.ToList();
+
+            var test = db.Order_Detail.GroupBy(x => x.Id_Product)
+                        .Select(x => new
+                        {
+                            id = x.Key,
+                            q = x.Sum(y => y.Quantity)
+                        }).OrderByDescending(z => z.q).ToList();
+            List<Test2> aa = new List<Test2>();
+                foreach (var row in test)
+                {
+                    //System.Diagnostics.Debug.WriteLine("{0}: {1}", row.id, row.q);
+                    Product p = db.Products.Find(row.id);
+                    var bb = new Test2(p.Name, p.Picture, p.Price);
+                    aa.Add(bb);
+                }
+
+                mymodel.Tests2 = aa;
+            return View(mymodel);
+
         }
 
         // GET: Home/Details/5
@@ -85,5 +122,16 @@ namespace FunitureManager.Controllers
                 return View();
             }
         }
+        /*
+        public ViewResult Tests()
+        {
+            ViewModel mymodel = new ViewModel();
+            var test1 = (from c in db.Order_Detail
+                         select new { Product = c.Id_Product, Quantity = c.Quantity }).Sum(x => x.Quantity);
+            mymodel.Test = test1.ToList();
+            return View(test1.ToList());
+        }
+        */
     }
+
 }
