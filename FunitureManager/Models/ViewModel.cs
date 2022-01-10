@@ -15,13 +15,17 @@ namespace FunitureManager.Models
     }
     public partial class Test1
     {
-        public Test1(Guid id, int q)
+        public Test1(int Q,int W, decimal E,int R)
         {
-            id = this.id;
-            q = this.q;
+            q = Q;
+            w = W;
+            e = E;
+            r = R;
         }
-        public System.Guid id { get; set; }
         public int q { get; set; }
+        public int w { get; set; }
+        public decimal e { get; set; }
+        public int r { get; set; }
     }
     public partial class Test2
     {

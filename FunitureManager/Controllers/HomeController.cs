@@ -19,6 +19,7 @@ namespace FunitureManager.Controllers
             products = products.OrderByDescending(s => s.Date);
             return View(products.ToList());*/  
             ViewModel mymodel = new ViewModel();
+
             //Order
                 var order = from s in db.Orders
                             select s;
@@ -31,6 +32,7 @@ namespace FunitureManager.Controllers
             var orders = from s in db.Order_Detail select s;
             mymodel.Order_Details = orders.ToList();
 
+            //test2
             var test = db.Order_Detail.GroupBy(x => x.Id_Product)
                         .Select(x => new
                         {
@@ -45,8 +47,24 @@ namespace FunitureManager.Controllers
                     var bb = new Test2(p.Name, p.Picture, p.Price);
                     aa.Add(bb);
                 }
+            mymodel.Tests2 = aa;
 
-                mymodel.Tests2 = aa;
+            //test1
+            var test1 = db.Orders.Where(x => x.Date >= DateTime.Today).Count();
+            var test2 = from c in db.Orders.Where(so => so.Date >= DateTime.Today) 
+                        select new
+                        {
+                            w = c.Order_Detail.Sum(x=>x.Quantity),
+                            e = c.Order_Detail.Sum(x => x.Total_Price)
+                        };
+            List<Test1> a = new List<Test1>();
+                foreach (var row in test2)
+                {
+                    var b = new Test1(test1, test2.Sum(x => x.w), test2.Sum(x => x.e), 0);
+                    a.Add(b);
+                break;
+                }
+            mymodel.Tests1 = a;
             return View(mymodel);
 
         }

@@ -206,7 +206,7 @@ namespace FunitureManager.Controllers
                 to = order.User.Token, //for a topic to": "/topics/foo-bar"
                 notification = new PushMessageData
                 {
-                    title = "Status Order",
+                    title = "Your Order is "+status,
                     text = "Your status order now is "+status,
                     click_action =  "click_action" 
                 },
