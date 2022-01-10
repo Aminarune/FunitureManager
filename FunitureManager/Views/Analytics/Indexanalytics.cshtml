@@ -1,54 +1,48 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
-
-<html>
+﻿<html>
 <head>
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <style>
+        #chart_container{
+            width:400px;
 
-        // Load the Visualization API and the corechart package.
-        google.charts.load('current', { 'packages': ['corechart'] });
-
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawChart);
-
-        // Callback that creates and populates a data table,
-        // instantiates the pie chart, passes in the data and
-        // draws it.
-        function drawChart() {
-
-            // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-                ['ghế', 1],
-                ['minh', 7],
-                ['bàn', 1],
-                ['văn', 1],
-                ['kha', 2],
-                ['nghĩa', 2]
-            ]);
-
-            // Set chart options
-            var options = {
-                'title': 'tổng doanh thu sản phẩm bán được',
-                'width': 1500,
-                'height': 900
-            };
-
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            border:1px solid #ddd;
+            padding: 1px;
+            border-radius: 4px;
         }
-    </script>
+    </style>
 </head>
-
 <body>
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
+    <div id="chart_container">
+        <h3>Top 5 best selling products</h3>
+        <canvas id="bar_chart"></canvas>
+    </div>
+    <script>
+        var repArray = @Html.Raw(Json.Encode(ViewBag.INT));
+        var ages = @Html.Raw(Json.Encode(ViewBag.STRING));
+
+        var ctx = $("#bar_chart");
+        var bacChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ages,
+                datasets: [{
+                    label: "Sold Product",
+                    data: repArray,
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)']
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: { xAxes: [{ ticks: { beginAtZero: true } }] },
+                legend: {display:false}
+            },
+        });
+    </script>
 </body>
 </html>

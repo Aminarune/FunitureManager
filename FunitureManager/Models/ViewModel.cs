@@ -12,6 +12,17 @@ namespace FunitureManager.Models
         public IEnumerable<Order_Detail> Order_Details { get; set; }
         public IEnumerable<Test1> Tests1 { get; set; }
         public IEnumerable<Test2> Tests2 { get; set; }
+        public IEnumerable<Ana> Anas { get; set; }
+    }
+    public partial class Ana
+    {
+        public Ana(String Q, int W)
+        {
+            ProductName = Q;
+            Quantity = W;
+        }
+        public String ProductName { get; set; }
+        public int? Quantity { get; set; }
     }
     public partial class Test1
     {
