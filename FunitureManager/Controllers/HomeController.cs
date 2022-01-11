@@ -42,7 +42,7 @@ namespace FunitureManager.Controllers
             List<Test2> aa = new List<Test2>();
                 foreach (var row in test)
                 {
-                    //System.Diagnostics.Debug.WriteLine("{0}: {1}", row.id, row.q);
+                    System.Diagnostics.Debug.WriteLine("{0}: {1}", row.id, row.q);
                     Product p = db.Products.Find(row.id);
                     var bb = new Test2(p.Name, p.Picture, p.Price);
                     aa.Add(bb);
@@ -51,7 +51,7 @@ namespace FunitureManager.Controllers
 
             //test1
             var test1 = db.Orders.Where(x => x.Date >= DateTime.Today).Count();
-            var test2 = from c in db.Orders.Where(so => so.Date >= DateTime.Today) 
+            var test2 = from c in db.Orders.Where(so => so.Date.Day == DateTime.Today.Day) 
                         select new
                         {
                             w = c.Order_Detail.Sum(x=>x.Quantity),
@@ -61,6 +61,7 @@ namespace FunitureManager.Controllers
                 foreach (var row in test2)
                 {
                     var b = new Test1(test1, test2.Sum(x => x.w), test2.Sum(x => x.e), 0);
+                    System.Diagnostics.Debug.WriteLine("{0}: {1}", row.w, row.e);
                     a.Add(b);
                 break;
                 }

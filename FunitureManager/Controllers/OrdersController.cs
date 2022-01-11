@@ -201,20 +201,24 @@ namespace FunitureManager.Controllers
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
             //
-            push.SendPush(new PushMessage()
-            {
-                to = order.User.Token, //for a topic to": "/topics/foo-bar"
-                notification = new PushMessageData
+            if (order.User.Token != null) 
+            { 
+                push.SendPush(new PushMessage()
                 {
-                    title = "Your Order is "+status,
-                    text = "Your status order now is "+status,
-                    click_action =  "click_action" 
-                },
-                data = new
-                {
-                    example = "empty"
-                }
-            });
+                    to = order.User.Token, //for a topic to": "/topics/foo-bar"
+
+                    notification = new PushMessageData
+                    {
+                        title = "Your Order is "+status,
+                        text = "Your status order now is "+status,
+                        click_action =  "click_action" 
+                    },
+                    data = new
+                    {
+                        example = "empty"
+                    }
+                });
+            }
             //
             return RedirectToAction("Index");
         }

@@ -10,15 +10,24 @@
                 <div class="box-topic">Total Order</div>
                 @{ if (Model.Tests1 != null)
                     {
+                        if (Model.Tests1.Count() <= 0)
+                        {
+                            <div class="number">0</div>
+                        }
                         foreach (var item in Model.Tests1)
                         {
-                            <div class="number">@Html.DisplayFor(modelItem => item.q)</div>
+                            if (item.q != 0)
+                            {
+                                <div class="number">@Html.DisplayFor(modelItem => item.q)</div>
+                            }
+                            else
+                            {<div class="number">0</div>}
                             break;
                         }
                     }
                     else
                     {
-                        <div class="number">NULL</div>
+                        <div class="number">0</div>
                     }
                 }
                 <div class="indicator">
@@ -33,15 +42,24 @@
                 <div class="box-topic">Total Sales</div>
                 @{ if (Model.Tests1 != null)
                     {
+                        if (Model.Tests1.Count() <= 0)
+                        {
+                            <div class="number">0</div>
+                        }
                         foreach (var item in Model.Tests1)
                         {
-                            <div class="number">@Html.DisplayFor(modelItem => item.w)</div>
+                            if (item.w != 0)
+                            {
+                                <div class="number">@Html.DisplayFor(modelItem => item.w)</div>
+                            }
+                            else
+                            {<div class="number">0</div>}
                             break;
                         }
                     }
                     else
                     {
-                        <div class="number">NULL</div>
+                        <div class="number">0</div>
                     }
                 }
                 <div class="indicator">
@@ -56,15 +74,24 @@
                 <div class="box-topic">Total Profit</div>
                 @{ if (Model.Tests1 != null)
                     {
+                        if (Model.Tests1.Count() <= 0)
+                        {
+                            <div class="number">0</div>
+                        }
                         foreach (var item in Model.Tests1)
                         {
-                            <div class="number">@Html.DisplayFor(modelItem => item.e)</div>
+                            if (item.e != 0)
+                            {
+                                <div class="number">@Html.DisplayFor(modelItem => item.e)</div>
+                            }
+                            else
+                            {<div class="number">0</div>}
                             break;
                         }
                     }
                     else
                     {
-                        <div class="number">NULL</div>
+                        <div class="number">0</div>
                     }
                 }
                 <div class="indicator">

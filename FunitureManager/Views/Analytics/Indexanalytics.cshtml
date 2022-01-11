@@ -1,4 +1,5 @@
-﻿<html>
+﻿@model FunitureManager.Models.ViewModel
+<html>
 <head>
     <script src="~/Scripts/Chart.min.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -14,11 +15,31 @@
     </style>
 </head>
 <body>
-    <div id="chart_container">
-        <h3>Top 5 best selling products</h3>
-        <canvas id="bar_chart"></canvas>
+    <div class="btn-group dropright">
+        <button class="btn btn-primary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton" data-toggle="dropdown" style="width:125px;
+background-color:black;">
+            Choose Year
+        </button>
+        <div class="dropdown-menu">
+            <form class="px-4 py-3">
+                @foreach (var item in Model.Years)
+                {
+                    @Html.ActionLink("" + item, "Indexanalytics", new { year = item })
+                    <br />
+                }
+            </form>
+            </div>
     </div>
-    <script>
+                <div>
+
+                </div>
+                <div id="chart_container">
+                    <h3>Top 5 best selling products</h3>
+                    <canvas id="bar_chart" style="width:500px;height:800px"></canvas>
+                </div>
+                <script>
         var repArray = @Html.Raw(Json.Encode(ViewBag.INT));
         var ages = @Html.Raw(Json.Encode(ViewBag.STRING));
 
@@ -30,7 +51,7 @@
                 datasets: [{
                     label: "Sold Product",
                     data: repArray,
-                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
@@ -38,11 +59,61 @@
                 }]
             },
             options: {
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
                 scales: { xAxes: [{ ticks: { beginAtZero: true } }] },
                 legend: {display:false}
             },
         });
-    </script>
+                </script>
+                <div>
+
+                </div>
+                <div id="chart_container2">
+                    <h3>Order in year</h3>
+                    <canvas id="line_chart"></canvas>
+                </div>
+                <script>
+        var repArray = @Html.Raw(Json.Encode(ViewBag.ORDER));
+
+        var ctx = $("#line_chart");
+        var bacChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January','February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                datasets: [{
+                    label: 'Order',
+                    data: repArray,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            }
+        });
+                </script>
+                <div>
+
+                </div>
+                <div id="chart_container2">
+                    <h3>Profit in year</h3>
+                    <canvas id="line_chart2"></canvas>
+                </div>
+                <script>
+        var repArray = @Html.Raw(Json.Encode(ViewBag.PROFIT));
+
+        var ctx = $("#line_chart2");
+        var bacChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January','February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                datasets: [{
+                    label: 'Profit',
+                    data: repArray,
+                    fill: false,
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                }]
+            }
+        });
+                </script>
 </body>
 </html>
