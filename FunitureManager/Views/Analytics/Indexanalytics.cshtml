@@ -15,13 +15,17 @@
 </head>
 <body>
     
-    <div id="chart_container">
-        <h3>Top 5 best selling products all time</h3>
-        <canvas id="bar_chart" style="width:500px;height:800px"></canvas>
-    </div>
-    <div id="chart_container">
-        <h3>Top 5 favorite products</h3>
-        <canvas id="bar_chart2" style="width:500px;height:800px"></canvas>
+    <div style="display:flex;
+justify-content:center;
+">
+        <div id="chart_container">
+            <h3>Top 5 best selling products</h3>
+            <canvas id="bar_chart" style="width:500px;height:800px"></canvas>
+        </div>
+        <div id="chart_container" style="margin-left:100px;">
+            <h3>Top 5 favorite products</h3>
+            <canvas id="bar_chart2" style="width:500px;height:800px"></canvas>
+        </div>
     </div>
     <script>
         var repArray = @Html.Raw(Json.Encode(ViewBag.INT));
