@@ -43,14 +43,6 @@
           <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Status" Type="bit" />
         </EntityType>
-        <EntityType Name="Notification">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Id_User" Type="uniqueidentifier" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
-        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
@@ -171,18 +163,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Notification_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="Id_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Order_Detail_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
@@ -272,7 +252,6 @@
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Favorite" EntityType="Self.Favorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manager" EntityType="Self.Manager" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order_Detail" EntityType="Self.Order_Detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -294,10 +273,6 @@
           <AssociationSet Name="FK_Favorite_User" Association="Self.FK_Favorite_User">
             <End Role="User" EntitySet="User" />
             <End Role="Favorite" EntitySet="Favorite" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Notification_User" Association="Self.FK_Notification_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Detail_Order" Association="Self.FK_Order_Detail_Order">
             <End Role="Order" EntitySet="Order" />
@@ -376,15 +351,6 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Manager" FromRole="Manager" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Notification">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Id_User" Type="Guid" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Notification_User" FromRole="Notification" ToRole="User" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -471,7 +437,6 @@
           <Property Name="Token" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_User" FromRole="User" ToRole="Cart" />
           <NavigationProperty Name="Favorites" Relationship="Self.FK_Favorite_User" FromRole="User" ToRole="Favorite" />
-          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notification_User" FromRole="User" ToRole="Notification" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Shipping_Address" Relationship="Self.FK_Shipping_Address_User" FromRole="User" ToRole="Shipping_Address" />
         </EntityType>
@@ -547,18 +512,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Notification_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="Id_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Order_Detail_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
@@ -624,7 +577,6 @@
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Favorites" EntityType="Self.Favorite" />
           <EntitySet Name="Managers" EntityType="Self.Manager" />
-          <EntitySet Name="Notifications" EntityType="Self.Notification" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Order_Detail" EntityType="Self.Order_Detail" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -654,10 +606,6 @@
           <AssociationSet Name="FK_Order_Manager" Association="Self.FK_Order_Manager">
             <End Role="Manager" EntitySet="Managers" />
             <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Notification_User" Association="Self.FK_Notification_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Detail_Order" Association="Self.FK_Order_Detail_Order">
             <End Role="Order" EntitySet="Orders" />
@@ -725,15 +673,6 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Notifications">
-            <EntityTypeMapping TypeName="FunitureStoreModel.Notification">
-              <MappingFragment StoreEntitySet="Notification">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

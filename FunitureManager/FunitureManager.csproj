@@ -320,15 +320,15 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
     <EntityDeploy Include="Models\FunitureStoreModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FunitureStoreModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\FunitureStoreModel.edmx.diagram">
       <DependentUpon>FunitureStoreModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="..\.editorconfig">
-      <Link>.editorconfig</Link>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
@@ -391,9 +391,6 @@
       <DependentUpon>FunitureStoreModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Manager.cs">
-      <DependentUpon>FunitureStoreModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Notification.cs">
       <DependentUpon>FunitureStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">

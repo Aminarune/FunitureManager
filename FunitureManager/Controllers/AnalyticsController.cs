@@ -17,7 +17,7 @@ namespace FunitureManager.Controllers
         // GET: Analytics
 
         public ViewResult Indexanalytics(string year,string year2)
-        {
+        { 
             //year1
             List<int> ye = new List<int>();
             int year1 = DateTime.Now.Year;
@@ -44,6 +44,8 @@ namespace FunitureManager.Controllers
             }
             mymodel.Years = ye2.ToList();
             int years2 = Int32.Parse(year2);
+            ViewBag.YEAR = year;
+            ViewBag.YEAR2 = year2;
             //
             List<int> listint = new List<int>();
             List<String> liststring = new List<String>();

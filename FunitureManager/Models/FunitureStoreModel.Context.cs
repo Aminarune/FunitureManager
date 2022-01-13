@@ -29,7 +29,6 @@ namespace FunitureManager.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Favorite> Favorites { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
-        public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Order_Detail> Order_Detail { get; set; }
         public virtual DbSet<Product> Products { get; set; }

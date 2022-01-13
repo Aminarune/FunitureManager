@@ -11,6 +11,7 @@ namespace FunitureManager.Models
         public IEnumerable<Order> Orders { get; set; }
         public IEnumerable<Order_Detail> Order_Details { get; set; }
         public IEnumerable<Test1> Tests1 { get; set; }
+        public IEnumerable<Test1> Tests11 { get; set; }
         public IEnumerable<Test2> Tests2 { get; set; }
         public IEnumerable<Ana> Anas { get; set; }
         public IEnumerable<int> Years { get; set; }

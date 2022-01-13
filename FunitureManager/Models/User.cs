@@ -21,7 +21,6 @@ namespace FunitureManager.Models
         {
             this.Carts = new HashSet<Cart>();
             this.Favorites = new HashSet<Favorite>();
-            this.Notifications = new HashSet<Notification>();
             this.Orders = new HashSet<Order>();
             this.Shipping_Address = new HashSet<Shipping_Address>();
         }
@@ -43,10 +42,6 @@ namespace FunitureManager.Models
         [IgnoreDataMember]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favorite> Favorites { get; set; }
-        [JsonIgnore]
-        [IgnoreDataMember]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notifications { get; set; }
         [JsonIgnore]
         [IgnoreDataMember]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

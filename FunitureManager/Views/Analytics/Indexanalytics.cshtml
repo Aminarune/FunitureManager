@@ -14,31 +14,7 @@
     </style>
 </head>
 <body>
-    <div style="flex-direction:row;">
-        <div class="btn-group dropright">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="width:125px;margin-left:120px;background-color:black;">
-                Choose Year
-            </button>
-            <div class="dropdown-menu">
-                @foreach (var item in Model.Years)
-                {
-    <div class="btn-group dropdown-container">
-        <button class="btn btn-primary dropdown-container" type="button" id="dropdownHeaderButton" data-toggle="dropdown" style="width:100px;background-color:black;">
-            @item
-        </button>
-        <div class="dropdown-container" style="margin-left:34px">
-
-            @foreach (var item2 in Model.Years)
-            {
-@Html.ActionLink("" + item2, "Indexanalytics", new { year = item, year2 = item2 })
-                    <br />}
-
-        </div>
-    </div>}
-
-            </div>
-        </div>
-    </div>
+    
     <div id="chart_container">
         <h3>Top 5 best selling products all time</h3>
         <canvas id="bar_chart" style="width:500px;height:800px"></canvas>
@@ -97,11 +73,38 @@
             },
         });
     </script>
+    <div style="flex-direction:row;">
+        <div class="btn-group dropright">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="width:125px;margin-left:120px;background-color:black;">
+                Choose Year
+            </button>
+            <div class="dropdown-menu">
+                @foreach (var item in Model.Years)
+                {
+    <div class="btn-group dropdown-container">
+        <button class="btn btn-primary dropdown-container" type="button" id="dropdownHeaderButton" data-toggle="dropdown" style="width:100px;background-color:black;">
+            @item
+        </button>
+        <div class="dropdown-container" style="margin-left:34px">
+
+            @foreach (var item2 in Model.Years)
+            {
+@Html.ActionLink("" + item2, "Indexanalytics", new { year = item, year2 = item2 })
+                    <br />}
+
+        </div>
+    </div>}
+
+            </div>
+        </div>
+    </div>
     <div id="chart_container2">
         <h3 style="margin-left:2%;">Order in year</h3>
         <canvas id="line_chart" style="width:500px;"></canvas>
     </div>
     <script>
+        var year = @Html.Raw(Json.Encode(ViewBag.YEAR));
+        var year2 = @Html.Raw(Json.Encode(ViewBag.YEAR2));
         var repArray = @Html.Raw(Json.Encode(ViewBag.ORDER));
         var repArray2 = @Html.Raw(Json.Encode(ViewBag.ORDER2));
         if (repArray == repArray2) {
@@ -111,7 +114,7 @@
                 data: {
                     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     datasets: [{
-                        label: 'Order of first year',
+                        label: 'Order in '+year,
                         data: repArray,
                         borderColor: 'rgb(75, 192, 192)',
                         fill: false
@@ -126,12 +129,12 @@
                 data: {
                     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     datasets: [{
-                        label: 'Order of first year',
+                        label: 'Order in '+year,
                         data: repArray,
                         borderColor: 'rgb(75, 192, 192)',
                         fill: false
                     }, {
-                        label: 'Order of second year',
+                            label: 'Order in ' + year2,
                         data: repArray2,
                             borderColor: 'rgba(255, 99, 132)',
                         fill: false
@@ -140,7 +143,7 @@
             });
         }
 
-        
+
     </script>
 
     <div id="chart_container2">
@@ -150,6 +153,8 @@
     <script>
         var repArray = @Html.Raw(Json.Encode(ViewBag.PROFIT));
         var repArray2 = @Html.Raw(Json.Encode(ViewBag.PROFIT2));
+        var year = @Html.Raw(Json.Encode(ViewBag.YEAR));
+        var year2 = @Html.Raw(Json.Encode(ViewBag.YEAR2));
         if (repArray == repArray2) {
             var ctx = $("#line_chart");
             var bacChart = new Chart(ctx, {
@@ -157,7 +162,7 @@
                 data: {
                     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     datasets: [{
-                        label: 'Order of first year',
+                        label: 'Profit in ' + year,
                         data: repArray,
                         borderColor: 'rgb(75, 192, 192)',
                         fill: false
@@ -172,12 +177,12 @@
                 data: {
                     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     datasets: [{
-                        label: 'Profit of first year',
+                        label: 'Profit in ' + year,
                         data: repArray,
                         borderColor: 'rgb(75, 192, 192)',
                         fill: false
                     }, {
-                        label: 'Profit of second year',
+                            label: 'Profit in ' + year2,
                         data: repArray2,
                             borderColor: 'rgba(255, 99, 132)',
                             fill: false
@@ -185,7 +190,7 @@
                 }
             });
         }
-        
+
     </script>
 </body>
 </html>
