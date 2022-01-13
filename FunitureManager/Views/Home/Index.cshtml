@@ -160,7 +160,7 @@
                         foreach (var item in Model.Orders)
                         {
                             i = i + 1;
-                            <li><a href="">@Html.DisplayFor(modelItem => item.Price)</a></li>
+                            <li><a href="">$@Html.DisplayFor(modelItem => item.Price)</a></li>
                             if (i == 6)
                             {
                                 break;

@@ -50,7 +50,7 @@ namespace FunitureManager.Controllers
             mymodel.Tests2 = aa;
 
             //test1
-            var test1 = db.Orders.Where(x => x.Date >= DateTime.Today).Count();
+            var test1 = db.Orders.Where(x => x.Date.Day == DateTime.Today.Day).Count();
             var test2 = from c in db.Orders.Where(so => so.Date.Day == DateTime.Today.Day) 
                         select new
                         {
